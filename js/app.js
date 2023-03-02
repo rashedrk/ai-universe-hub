@@ -1,18 +1,25 @@
 // load data from server 
-const loadData = async () => {
+const loadData = async (dataLimit) => {
     const url = 'https://openapi.programming-hero.com/api/ai/tools';
     const res = await fetch(url);
     const data = await res.json();
-    displayItems(data.data.tools);
+    displayItems(data.data.tools,dataLimit);
 };
 
 // display all items as card 
-const displayItems = (items) => {
+const displayItems = (items, dataLimit) => {
     const cardContainer = document.getElementById('card-container');
-    const sixItems = items.slice(0,6);
-    // console.log(items);
-    sixItems.forEach(item => {
-        console.log(item);
+    cardContainer.textContent = '';
+    // show only six item 
+    const seeMore = document.getElementById('btn-seeMore-container');
+    if (dataLimit && items.length > 6) {
+        items = items.slice(0,6);
+        seeMore.classList.remove('d-none');
+    } else {
+        seeMore.classList.add('d-none');
+    }
+    
+    items.forEach(item => {
         const itemDiv = document.createElement('div');
         itemDiv.classList.add('col');
         itemDiv.innerHTML = `
@@ -46,6 +53,7 @@ const displayItems = (items) => {
     toggleLoader(false);
 };
 
+// spinner or loader 
 const toggleLoader = (isLoading) => {
     const loaderContainer = document.getElementById('loader-container');
     if (isLoading) {
@@ -55,4 +63,11 @@ const toggleLoader = (isLoading) => {
     }
 };
 
-loadData()
+// show all items when see more is clicked
+document.getElementById('btn-seeMore').addEventListener('click', function () {
+    toggleLoader(true);
+    loadData();
+    
+})
+
+loadData(6)
