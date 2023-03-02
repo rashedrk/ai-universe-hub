@@ -9,8 +9,9 @@ const loadData = async () => {
 // display all items as card 
 const displayItems = (items) => {
     const cardContainer = document.getElementById('card-container');
+    const sixItems = items.slice(0,6);
     // console.log(items);
-    items.forEach(item => {
+    sixItems.forEach(item => {
         console.log(item);
         const itemDiv = document.createElement('div');
         itemDiv.classList.add('col');
@@ -24,8 +25,9 @@ const displayItems = (items) => {
                     item.features.map(feature =>`<li>${feature}</li>`).join('')
                 }
                 </ol>
+                </div>
                 <hr>
-                <div class="d-flex justify-content-between">
+                <div class="p-3 d-flex justify-content-between">
                     <div>
                         <h5 class="card-title">${item.name}</h5>
                         <div class="text-secondary">
@@ -36,10 +38,21 @@ const displayItems = (items) => {
                     </div>
                     <button class="btn text-danger-emphasis"><i class="fa-solid fa-arrow-right"></i></button>
             </div>
-        </div>
+        
         `;
         cardContainer.appendChild(itemDiv);
     });
+    // stop spinner 
+    toggleLoader(false);
+};
+
+const toggleLoader = (isLoading) => {
+    const loaderContainer = document.getElementById('loader-container');
+    if (isLoading) {
+        loaderContainer.classList.remove('d-none');
+    } else {
+        loaderContainer.classList.add('d-none');
+    }
 };
 
 loadData()
