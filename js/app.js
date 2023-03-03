@@ -43,7 +43,7 @@ const displayItems = (items, dataLimit) => {
                             }
                         </div>
                     </div>
-                    <button class="btn text-danger-emphasis"><i class="fa-solid fa-arrow-right"></i></button>
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn text-danger-emphasis"><i class="fa-solid fa-arrow-right"></i></button>
             </div>
         
         `;
