@@ -149,15 +149,22 @@ const displayDetails = (itemDetails) => {
     //Thumbnail image 
     const cardThumbnail = document.getElementById('card-thumbnail');
     cardThumbnail.src = `${itemDetails.image_link[0]}`;
-    // title
+    // examples of input and output
     const inputOutputContainer = document.getElementById('input-output-examples');
     inputOutputContainer.innerHTML = '';
-    const inputOutputData = itemDetails.input_output_examples;
-    const random = Math.floor(Math.random() * inputOutputData.length);
-    inputOutputContainer.innerHTML = `
-    <h5 id="thumbnail-title" class="card-title">${inputOutputData[random].input}</h5>
-    <p class="card-text">${inputOutputData[random].output}</p>
-    `
+
+    if (itemDetails.input_output_examples) {
+        const inputOutputData = itemDetails.input_output_examples;
+        const random = Math.floor(Math.random() * inputOutputData.length);
+        inputOutputContainer.innerHTML = `
+        <h5 id="thumbnail-title" class="card-title">${inputOutputData[random].input}</h5>
+        <p class="card-text">${inputOutputData[random].output}</p>
+        `
+    } else {
+        inputOutputContainer.innerHTML = `<h5 id="thumbnail-title" class="card-title">No Data Found</h5>`
+    }
+    
+
     // accuracy 
     const accuracyContainer = document.getElementById('accuracy');
     const accuracy = itemDetails.accuracy.score;
