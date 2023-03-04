@@ -151,9 +151,18 @@ const displayDetails = (itemDetails) => {
     `
     // accuracy 
     const accuracyContainer = document.getElementById('accuracy');
-    accuracyContainer.innerHTML = `
-        ${itemDetails.accuracy.score * 100}% accuracy
+    const accuracy = itemDetails.accuracy.score;
+    if (accuracy) {
+        accuracyContainer.innerHTML = `
+        ${accuracy * 100}% accuracy
     `;
+    accuracyContainer.classList.remove('d-none')
+    } else {
+        accuracyContainer.classList.add('d-none');
+    }
+    /*-----------------------------------
+    item thumbnail part End (right side)
+    ------------------------------------*/
 };
 
 
