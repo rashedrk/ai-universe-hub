@@ -1,10 +1,19 @@
-// load data from server 
+// load all data from server 
 const loadData = async (dataLimit) => {
     const url = 'https://openapi.programming-hero.com/api/ai/tools';
     const res = await fetch(url);
     const data = await res.json();
     displayItems(data.data.tools,dataLimit);
 };
+// load details data 
+const loadDetails = async (id) => {
+    const url = `https://openapi.programming-hero.com/api/ai/tool/${id}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    displayDetails(data.data);
+    
+    
+}
 
 // display all items as card 
 const displayItems = (items, dataLimit) => {
@@ -21,6 +30,7 @@ const displayItems = (items, dataLimit) => {
     
     items.forEach(item => {
         const itemDiv = document.createElement('div');
+        console.log(item);
         itemDiv.classList.add('col');
         itemDiv.innerHTML = `
         <div class="p-3 card h-100">
@@ -43,7 +53,7 @@ const displayItems = (items, dataLimit) => {
                             }
                         </div>
                     </div>
-                    <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn text-danger-emphasis"><i class="fa-solid fa-arrow-right"></i></button>
+                    <button onclick="detailsHandler('${item.id}')" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn text-danger-emphasis"><i class="fa-solid fa-arrow-right"></i></button>
             </div>
         
         `;
@@ -69,5 +79,39 @@ document.getElementById('btn-seeMore').addEventListener('click', function () {
     loadData();
     
 })
+
+// details (->) button handler
+const detailsHandler = (id) => {
+    loadDetails(id);
+    
+}
+
+// display item details into modal 
+const displayDetails = (itemDetails) => {
+    /*--------------------------------- 
+    item details part start (left side)
+    ----------------------------------*/
+    console.log(itemDetails);
+    //title
+    const detailsTitle = document.getElementById('card-details-title');
+    detailsTitle.innerText = itemDetails.description;
+    // price card 
+    const priceCardContainer = document.getElementById('price-card-container');
+    priceCardContainer.innerHTML = '';
+    itemDetails.pricing.map(pricing => {
+        const priceCardDiv = document.createElement('div');
+        priceCardDiv.classList.add('price-card', 'rounded', 'shadow-sm');
+        priceCardDiv.innerHTML = `
+        ${pricing.price} <br>
+        ${pricing.plan}
+        `;
+        priceCardContainer.appendChild(priceCardDiv);
+    });
+    // Features
+    const detailsFeatures = document.getElementById('details-features');
+    
+
+};
+
 
 loadData(6)

@@ -9,13 +9,14 @@
     background-color: white;
     font-weight: 600;
 }
-#price-card-1{
+/* color to price card  */
+#price-card-container :nth-child(1){
     color: #03A30A;
 }
-#price-card-2{
+#price-card-container :nth-child(2){
     color: #F28927;
 }
-#price-card-3{
+#price-card-container :nth-child(3){
     color: #EB5757;
 }
 
