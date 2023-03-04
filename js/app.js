@@ -109,6 +109,7 @@ const displayDetails = (itemDetails) => {
     });
     // Features
     const detailsFeatures = document.getElementById('details-features');
+    detailsFeatures.innerHTML = '';
     const features = itemDetails.features;
     for (const key in features){
         // console.log(features[key].feature_name);
@@ -118,6 +119,16 @@ const displayDetails = (itemDetails) => {
         `;
         detailsFeatures.appendChild(li);
     }
+    // Integrations
+    const integrationsUl = document.getElementById('integrations');
+    integrationsUl.innerHTML = '';
+    itemDetails.integrations.map(integration => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+            <li>${integration}</li>
+        `;
+        integrationsUl.appendChild(li);
+    });
 };
 
 
