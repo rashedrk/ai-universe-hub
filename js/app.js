@@ -129,6 +129,26 @@ const displayDetails = (itemDetails) => {
         `;
         integrationsUl.appendChild(li);
     });
+    /*--------------------------------- 
+    item details part End (left side)
+    ----------------------------------*/
+
+    /*-----------------------------------
+    item thumbnail part start (right side)
+    ------------------------------------*/
+
+    //Thumbnail image 
+    const cardThumbnail = document.getElementById('card-thumbnail');
+    cardThumbnail.src = `${itemDetails.image_link[0]}`;
+    // title
+    const inputOutputContainer = document.getElementById('input-output-examples');
+    inputOutputContainer.innerHTML = '';
+    const inputOutputData = itemDetails.input_output_examples;
+    const random = Math.floor(Math.random() * inputOutputData.length);
+    inputOutputContainer.innerHTML = `
+    <h5 id="thumbnail-title" class="card-title">${inputOutputData[random].input}</h5>
+    <p class="card-text">${inputOutputData[random].output}</p>
+    `
 };
 
 
