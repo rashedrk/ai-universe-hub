@@ -98,15 +98,22 @@ const displayDetails = (itemDetails) => {
     // price card 
     const priceCardContainer = document.getElementById('price-card-container');
     priceCardContainer.innerHTML = '';
-    itemDetails.pricing.map(pricing => {
-        const priceCardDiv = document.createElement('div');
-        priceCardDiv.classList.add('price-card', 'rounded', 'shadow-sm');
-        priceCardDiv.innerHTML = `
-        ${pricing.price} <br>
-        ${pricing.plan}
-        `;
-        priceCardContainer.appendChild(priceCardDiv);
-    });
+    priceCardContainer.innerHTML = `
+        <div class="price-card rounded shadow-sm">
+        ${
+            itemDetails.pricing && itemDetails.pricing[0].price != 0 && itemDetails.pricing[0].price != 'No cost'   ? (itemDetails.pricing[0].price + '<br>' + itemDetails.pricing[0].plan) : 'Free of Cost'
+        }
+        </div>
+        <div class="price-card rounded shadow-sm">
+        ${
+            itemDetails.pricing && itemDetails.pricing[1].price != 0 && itemDetails.pricing[0].price != 'No cost'   ? (itemDetails.pricing[1].price + '<br>' + itemDetails.pricing[1].plan) : 'Free of Cost'
+        }
+        </div>
+        <div class="price-card rounded shadow-sm">
+        ${
+            itemDetails.pricing ? (itemDetails.pricing[2].price + '<br>' + itemDetails.pricing[2].plan) : 'Free of Cost'
+        }
+    `
     // Features
     const detailsFeatures = document.getElementById('details-features');
     detailsFeatures.innerHTML = '';
