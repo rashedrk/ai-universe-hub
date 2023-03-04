@@ -129,13 +129,15 @@ const displayDetails = (itemDetails) => {
     // Integrations
     const integrationsUl = document.getElementById('integrations');
     integrationsUl.innerHTML = '';
+    itemDetails.integrations ?
     itemDetails.integrations.map(integration => {
         const li = document.createElement('li');
         li.innerHTML = `
             <li>${integration}</li>
         `;
         integrationsUl.appendChild(li);
-    });
+    }) 
+    : integrationsUl.innerHTML = 'No Data Found';
     /*--------------------------------- 
     item details part End (left side)
     ----------------------------------*/
