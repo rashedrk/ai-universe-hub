@@ -109,8 +109,15 @@ const displayDetails = (itemDetails) => {
     });
     // Features
     const detailsFeatures = document.getElementById('details-features');
-    
-
+    const features = itemDetails.features;
+    for (const key in features){
+        // console.log(features[key].feature_name);
+        const li = document.createElement('li');
+        li.innerHTML = `
+            ${features[key].feature_name}
+        `;
+        detailsFeatures.appendChild(li);
+    }
 };
 
 
