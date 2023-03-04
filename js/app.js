@@ -149,6 +149,11 @@ const displayDetails = (itemDetails) => {
     <h5 id="thumbnail-title" class="card-title">${inputOutputData[random].input}</h5>
     <p class="card-text">${inputOutputData[random].output}</p>
     `
+    // accuracy 
+    const accuracyContainer = document.getElementById('accuracy');
+    accuracyContainer.innerHTML = `
+        ${itemDetails.accuracy.score * 100}% accuracy
+    `;
 };
 
 
