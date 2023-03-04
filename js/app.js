@@ -88,61 +88,81 @@ const detailsHandler = (id) => {
 
 // display item details into modal 
 const displayDetails = (itemDetails) => {
-    const itemDetailsContainer = document.getElementById('item-details-container');
+    /*--------------------------------- 
+    item details part start (left side)
+    ----------------------------------*/
+    console.log(itemDetails);
+    //title
+    const detailsTitle = document.getElementById('card-details-title');
+    detailsTitle.innerText = itemDetails.description;
+    // price card 
+    const priceCardContainer = document.getElementById('price-card-container');
+    priceCardContainer.innerHTML = '';
+    itemDetails.pricing.map(pricing => {
+        const priceCardDiv = document.createElement('div');
+        priceCardDiv.classList.add('price-card', 'rounded', 'shadow-sm');
+        priceCardDiv.innerHTML = `
+        ${pricing.price} <br>
+        ${pricing.plan}
+        `;
+        priceCardContainer.appendChild(priceCardDiv);
+    });
+    // Features
+    const detailsFeatures = document.getElementById('details-features');
+    detailsFeatures.innerHTML = '';
+    const features = itemDetails.features;
+    for (const key in features){
+        // console.log(features[key].feature_name);
+        const li = document.createElement('li');
+        li.innerHTML = `
+            ${features[key].feature_name}
+        `;
+        detailsFeatures.appendChild(li);
+    }
+    // Integrations
+    const integrationsUl = document.getElementById('integrations');
+    integrationsUl.innerHTML = '';
+    itemDetails.integrations.map(integration => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+            <li>${integration}</li>
+        `;
+        integrationsUl.appendChild(li);
+    });
+    /*--------------------------------- 
+    item details part End (left side)
+    ----------------------------------*/
 
-    itemDetailsContainer.innerHTML = `
-        <div id="card-details-container" class="col">
-        <div class="card h-100">
-            <div id="card-details" class="card-body rounded">
-                <h5 id="card-details-title" class="card-title">${itemDetails.description}</h5>
-                <div id="price-card-container" class="d-flex justify-content-between">
-                    <div class="price-card rounded shadow-sm">
-                        ${
-                            itemDetails.pricing && itemDetails.pricing[0].price != 0 && itemDetails.pricing[0].price != 'No cost'   ? (itemDetails.pricing[0].price + '<br>' + itemDetails.pricing[0].plan) : 'Free of Cost'
-                        }
-                    </div>
-                    <div class="price-card rounded shadow-sm">
-                        ${
-                            itemDetails.pricing && itemDetails.pricing[1].price != 0 && itemDetails.pricing[0].price != 'No cost'   ? (itemDetails.pricing[1].price + '<br>' + itemDetails.pricing[1].plan) : 'Free of Cost'
-                        }
-                    </div>
-                    <div class="price-card rounded shadow-sm">
-                        ${
-                            itemDetails.pricing ? (itemDetails.pricing[2].price + '<br>' + itemDetails.pricing[2].plan) : 'Free of Cost'
-                        }
-                    </div>
-                </div>
-                <div class="d-flex justify-content-between mt-3">
-                    <div>
-                        <h1>Features</h1>
-                        <ul id="details-features">
-                            
-                        </ul>
-                    </div>
-                    <div>
-                        <h1>Integrations</h1>
-                        <ul id="integrations">
-                            
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>
-        <div class="col">
-        <div id="card-thumbnail-container" class="card h-100 p-3">
-            <img id="card-thumbnail" class="rounded" src="" class="card-img-top" alt="...">
-            <div id="accuracy">
-            
-            </div>
-            <div class="card-body text-center">
-            <div id="input-output-examples">
-                
-            </div>
-            </div>
-        </div>
-        </div>
+    /*-----------------------------------
+    item thumbnail part start (right side)
+    ------------------------------------*/
+
+    //Thumbnail image 
+    const cardThumbnail = document.getElementById('card-thumbnail');
+    cardThumbnail.src = `${itemDetails.image_link[0]}`;
+    // title
+    const inputOutputContainer = document.getElementById('input-output-examples');
+    inputOutputContainer.innerHTML = '';
+    const inputOutputData = itemDetails.input_output_examples;
+    const random = Math.floor(Math.random() * inputOutputData.length);
+    inputOutputContainer.innerHTML = `
+    <h5 id="thumbnail-title" class="card-title">${inputOutputData[random].input}</h5>
+    <p class="card-text">${inputOutputData[random].output}</p>
+    `
+    // accuracy 
+    const accuracyContainer = document.getElementById('accuracy');
+    const accuracy = itemDetails.accuracy.score;
+    if (accuracy) {
+        accuracyContainer.innerHTML = `
+        ${accuracy * 100}% accuracy
     `;
+    accuracyContainer.classList.remove('d-none')
+    } else {
+        accuracyContainer.classList.add('d-none');
+    }
+    /*-----------------------------------
+    item thumbnail part End (right side)
+    ------------------------------------*/
 };
 
 
